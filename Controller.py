@@ -22,7 +22,10 @@ class Controller(object):
 	def canDoctorMove(self):
 	def moveDoctor(self):
 	def moveDaleks(self):
+		for i in range(len(self.daleks)):
+			self.daleks[i].move(self.doctor.position)
+			
 	def reset(self):
-		initGameboard(20,30)
-		initDoctor()
-		initDalekArmy()
+		self.initGameboard(20,30)
+		self.initDoctor()
+		self.initDalekArmy()

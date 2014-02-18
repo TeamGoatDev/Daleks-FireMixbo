@@ -8,11 +8,10 @@ class Enum(object):
 		self.lastId +=1
 		return self.lastId
 		
-
+Enum = Enum()
 
 class UserAction:
         """docstring for UserAction"""
-        Enum = Enum()
         MOVE_N = Enum.addId()
         MOVE_S = Enum.addId()
         MOVE_E = Enum.addId()

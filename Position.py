@@ -7,7 +7,10 @@ class Position(object):
 		self.x = x
 		self.y = y
 
-
+	def add(self, position):
+		self.x += position.x
+		self.y += position.y
+		
 	def randomize(self, rangeX, rangeY):
 		""" rangeX and rangeY are Tuples(min,max)"""
 		self.x = randrange(rangeX[0], rangeX[1]+1)

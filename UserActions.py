@@ -21,6 +21,8 @@ class UserAction:
         MOVE_NE = Enum.addId()
         MOVE_SW = Enum.addId()
         MOVE_SE = Enum.addId()
+        
+        MOVE_NULL = Enum.addId()
 
         ZAP = Enum.addId()
         TELEPORT = Enum.addId()

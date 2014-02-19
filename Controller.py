@@ -1,6 +1,6 @@
 from Model import *
 from View import *
-
+from UserActions import *
 
 class Controller(object):
         """docstring for Controller"""
@@ -11,17 +11,16 @@ class Controller(object):
 
         def gameLoop(self):
                 returnCode = ReturnCodes.SUCCESS
-                while returnCode == ReturnCodes.SUCCESS:
+                while returnCode != ReturnCodes.DEAD_DOCTOR:
                         returnCode = self.startGame()
      
                         
         def startGame(self):
                 # Everything has been inited in the Views and the Model Constructors
-                userInput = self.view.refresh(self.model.gameboard, 
+                userAction = self.view.refresh(self.model.gameboard, 
                                                                           self.model.doctor, 
                                                                           self.model.daleks, 
                                                                           self.model.scrapHeaps)
-                userAction = self.actionFromInput(userInput)
 
                 if userAction == UserAction.ZAP:
                         self.model.zap() # ZAP
@@ -34,29 +33,7 @@ class Controller(object):
                         return ReturnCodes.SUCCESS
                 return returnCode
                 
-        def actionFromInput(self, userInput):
-                if userInput == "q":
-                        return UserAction.MOVE_NW
-                if userInput == "w":
-                        return UserAction.MOVE_N
-                if userInput == "e":
-                        return UserAction.MOVE_NE
-                if userInput == "a":
-                        return UserAction.MOVE_W
-                if userInput == "s":
-                        return UserAction.MOVE_NULL
-                if userInput == "d":
-                        return UserAction.MOVE_E
-                if userInput == "z":
-                        return UserAction.MOVE_SW
-                if userInput == "x":
-                        return UserAction.MOVE_S
-                if userInput == "c":
-                        return UserAction.MOVE_SE
-                if userInput == " ":
-                        return UserAction.ZAP
-                if userInput == "t":
-                        return UserAction.TELEPORT
+       
 
                 
 

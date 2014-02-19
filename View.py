@@ -1,7 +1,7 @@
 # -*- coding: utf8 -*-
 from __future__ import unicode_literals
 import sys
-
+from UserActions import *
 
 
 class View(object):
@@ -20,7 +20,32 @@ class View(object):
                 while self.sanitizeInput(value) == False:
                         value = input(text)
                 return value
+        
 
+        def actionFromInput(self, userInput):
+                if userInput == "q":
+                        return UserAction.MOVE_NW
+                if userInput == "w":
+                        return UserAction.MOVE_N
+                if userInput == "e":
+                        return UserAction.MOVE_NE
+                if userInput == "a":
+                        return UserAction.MOVE_W
+                if userInput == "s":
+                        return UserAction.MOVE_NULL
+                if userInput == "d":
+                        return UserAction.MOVE_E
+                if userInput == "z":
+                        return UserAction.MOVE_SW
+                if userInput == "x":
+                        return UserAction.MOVE_S
+                if userInput == "c":
+                        return UserAction.MOVE_SE
+                if userInput == " ":
+                        return UserAction.ZAP
+                if userInput == "t":
+                        return UserAction.TELEPORT
+                
 
         def sanitizeInput(self, userInput):
                 return userInput in self.commands
@@ -33,6 +58,7 @@ class View(object):
         def displayGameboard(self, gameboard, dr, daleks, scrapHeaps):
                 boardUI = self.generateMatrix(gameboard, dr, daleks, scrapHeaps)
                 for y in range(0,gameboard.y-1):
+                         print(y,end='')
                          for x in range(0,gameboard.x-1):
                                 print(boardUI[x][y],end='')
                          print("")
@@ -54,14 +80,13 @@ class View(object):
         def refresh(self, gameboard, dr, daleks, scrapHeap):
                 self.displayCosmicPoints(dr.nbPoints)
                 self.displayGameboard(gameboard, dr, daleks, scrapHeap)
-                return self.waitForInput()
+                return self.actionFromInput(self.waitForInput())
+
+        
                
 
 
 
 
-if __name__ == '__main__':
-        view = View()
-        view.refresh(None,None,None,None)
                 
                 

@@ -2,6 +2,8 @@ from ReturnCodes import *
 from Gameboard import *
 from GameObjects import *
 from UserActions import *
+import random
+
 class Model(object):
 	""" """
 
@@ -27,6 +29,24 @@ class Model(object):
 		self.daleks = []
 		for i in range(self.level*5):
 			self.daleks.append(Dalek())
+
+		for i in range(len(self.daleks)):
+			collisionFound = 1
+			while(collisionFound == 1):
+				x = random.randint(0,self.gameboard.x)
+				y = random.randint(0,self.gameboard.y)
+
+				positionTempo = Position(x,y)
+				collisionFound = 0
+
+				for j in range(i):
+					if positionTempo == self.daleks[j].position:
+						collisionFound = 1
+
+				if positionTempo == self.doctor.position:
+					collisionFound = 1
+					
+			self.daleks[i].position = positionTempo
 
 
 	def initDoctor(self):

@@ -34,15 +34,23 @@ class View(object):
                 boardUI = self.generateMatirx(gameboard, dr, daleks, scrapHeaps)
                 for y in xrange(0,gameboard.y-1):
                          for x in xrange(0,gameboard.x-1):
-                                print(boardUI[x][y],)
+                                print boardUI[x][y],
                          print("\n")
 
         def generateMatirx(self, gameboard, dr, daleks, scrapHeaps):
                 #Generate GUI Matrix from position, just for printing purpose
-                boardUI = a = [[0 for i in range(gameboard.x)] for j in range(gameboard.y)]
+                boardUI = [[0 for i in range(gameboard.y)] for j in range(gameboard.x)]
                 boardUI[dr.position.x][dr.position.y] = self.DOCTOR
+
+                #print gameboard.x
+                #print gameboard.y
+                #print boardUI
+
                 for dalek in daleks:
+                    try:
                         boardUI[dalek.position.x][dalek.position.y] = self.DALEK
+                    except:
+                        print str(dalek.position.x)+"\t|\t"+str(dalek.position.y)
                 for scrapHeap in scrapHeaps:
                         boardUI[scrapHeap.position.x][scrapHeap.position.y] = self.SCRAP_HEAP
                 return boardUI

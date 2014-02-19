@@ -5,4 +5,4 @@ class ReturnCodes():
     INVALID_ACTION = Enum.addId()
     DEAD_DOCTOR    = Enum.addId()
     END_TURN       = Enum.addId()
-    SUCCESS		   = Enum.addId()
+    SUCCESS	   = Enum.addId()

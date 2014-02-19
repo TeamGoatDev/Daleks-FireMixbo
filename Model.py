@@ -11,7 +11,7 @@ class Model(object):
 		super(Model, self).__init__()
 		self.level = 1
 		self.daleks = []
-		self.scrapHeap = []
+		self.scrapHeaps = []
 
 		self.reset()
 
@@ -33,8 +33,8 @@ class Model(object):
 		for i in range(len(self.daleks)):
 			collisionFound = 1
 			while(collisionFound == 1):
-				x = random.randint(0,self.gameboard.x)
-				y = random.randint(0,self.gameboard.y)
+				x = random.randint(0,self.gameboard.x-1)
+				y = random.randint(0,self.gameboard.y-1)
 
 				positionTempo = Position(x,y)
 				collisionFound = 0
@@ -51,8 +51,8 @@ class Model(object):
 
 	def initDoctor(self):
 		self.doctor = Doctor()
-		self.doctor.position.x = self.gameboard.x/2
-		self.doctor.position.y = self.gameboard.y/2
+		self.doctor.position.x = int(self.gameboard.x/2)
+		self.doctor.position.y = int(self.gameboard.y/2)
 
 	def isDoctorSafe(self):
 		pass
@@ -68,7 +68,7 @@ class Model(object):
 	def moveDoctor(self, direction):
 		""" the direction parameter is a UserAction MOVE_* """
 		targetPosition = self.detTargetDoctorPos(direction)
-		if self.canDoctorMove(targtePosition):
+		if self.canDoctorMove(targetPosition):
 			self.doctor.position = targetPosition
 			return ReturnCodes.SUCCESS
 		else:
@@ -82,22 +82,22 @@ class Model(object):
 	def detTargetDoctorPos(self, direction):
 		targetPosition = None
 		if direction == UserAction.MOVE_N:
-			targetPosition = Position(0,1)
-		if direction == UserAction.MOVE_S:
 			targetPosition = Position(0,-1)
+		if direction == UserAction.MOVE_S:
+			targetPosition = Position(0,1)
 		if direction == UserAction.MOVE_E:
 			targetPosition = Position(1,0)
 		if direction == UserAction.MOVE_W:
 			targetPosition = Position(-1,0)
 
 		if direction == UserAction.MOVE_NW:
-			targetPosition = Position(-1,1)
+			targetPosition = Position(-1,-1)
 		if direction == UserAction.MOVE_NE:
-			targetPosition = Position(1,1)
-		if direction == UserAction.MOVE_SW:
-			targetPosition = Position(-1,-1) 
-		if direction == UserAction.MOVE_SE:
 			targetPosition = Position(1,-1)
+		if direction == UserAction.MOVE_SW:
+			targetPosition = Position(-1,1) 
+		if direction == UserAction.MOVE_SE:
+			targetPosition = Position(1,1)
 		if direction == UserAction.MOVE_NULL:
 			targetPosition = Position(0,0)
 		targetPosition.add(self.doctor.position)
@@ -110,7 +110,7 @@ class Model(object):
 			return False
 		if position.y < 1 or position.y > self.gameboard.y:
 			return False
-		if isDoctorDead(position): #Test whether or not the doctor is commiting suicide
+		if self.isDoctorDead(position): #Test whether or not the doctor is commiting suicide
 			return False
 		return True
 
@@ -126,8 +126,8 @@ class Model(object):
 			
 	def isDoctorDead(self, doctorPosition):
 		for dalek in self.daleks:
-			if dalek.position.x == doctorPosition.position.x and  dalek.position.y == doctorPosition.position.y:
+			if dalek.position.x == doctorPosition.x and  dalek.position.y == doctorPosition.y:
 				return True
 		for scrapHeap in self.scrapHeaps:
-			if scrapHeap.position.x == doctorPosition.position.x and  scrapHeap.position.y == doctorPosition.position.y:
+			if scrapHeap.position.x == doctorPosition.x and  scrapHeap.position.y == doctorPosition.y:
 				return True 

@@ -2,8 +2,7 @@
 from __future__ import unicode_literals
 import sys
 
-if sys.version_info < (3, 2):
-        input = raw_input
+
 
 class View(object):
         """docstring for View"""
@@ -11,8 +10,8 @@ class View(object):
                 super(View, self).__init__()
                 self.commands = ["q", "w", "e", "a", "s", "d", "z","x","c"," ","t"]
                 self.DALEK = "X"
-                self.SCRAP_HEAP = "X"
-                self.DOCTOR = "X"
+                self.SCRAP_HEAP = "S"
+                self.DOCTOR = "D"
 
         def waitForInput(self):
                 text = "Entrez votre déplacement: "
@@ -20,6 +19,7 @@ class View(object):
                 print("---------------------------------------")
                 while self.sanitizeInput(value) == False:
                         value = input(text)
+                return value
 
 
         def sanitizeInput(self, userInput):
@@ -31,26 +31,20 @@ class View(object):
 
 
         def displayGameboard(self, gameboard, dr, daleks, scrapHeaps):
-                boardUI = self.generateMatirx(gameboard, dr, daleks, scrapHeaps)
-                for y in xrange(0,gameboard.y-1):
-                         for x in xrange(0,gameboard.x-1):
-                                print boardUI[x][y],
-                         print("\n")
+                boardUI = self.generateMatrix(gameboard, dr, daleks, scrapHeaps)
+                for y in range(0,gameboard.y-1):
+                         for x in range(0,gameboard.x-1):
+                                print(boardUI[x][y],end='')
+                         print("")
 
-        def generateMatirx(self, gameboard, dr, daleks, scrapHeaps):
+        def generateMatrix(self, gameboard, dr, daleks, scrapHeaps):
                 #Generate GUI Matrix from position, just for printing purpose
-                boardUI = [[0 for i in range(gameboard.y)] for j in range(gameboard.x)]
+                boardUI = [["." for i in range(gameboard.y)] for j in range(gameboard.x)]
                 boardUI[dr.position.x][dr.position.y] = self.DOCTOR
 
-                #print gameboard.x
-                #print gameboard.y
-                #print boardUI
 
                 for dalek in daleks:
-                    try:
                         boardUI[dalek.position.x][dalek.position.y] = self.DALEK
-                    except:
-                        print str(dalek.position.x)+"\t|\t"+str(dalek.position.y)
                 for scrapHeap in scrapHeaps:
                         boardUI[scrapHeap.position.x][scrapHeap.position.y] = self.SCRAP_HEAP
                 return boardUI

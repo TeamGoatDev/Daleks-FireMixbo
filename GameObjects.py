@@ -13,7 +13,7 @@ class Dalek(GameObject):
 	def __init__(self):
 		super(Dalek, self).__init__()
 
-	def move(docPos):
+	def move(self, docPos):
 		self.position.x += 1 if docPos.x > self.position.x else -1
 		self.position.y += 1 if docPos.y > self.position.y else -1
 

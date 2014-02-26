@@ -13,29 +13,37 @@ class Controller(object):
                 returnCode = ReturnCodes.SUCCESS
                 while returnCode != ReturnCodes.DEAD_DOCTOR:
                         returnCode = self.startGame()
-     
-                        
+                if returnCode == ReturnCodes.DEAD_DOCTOR:
+                        self.view.refresh(self.model.gameboard,
+                                                                          self.model.doctor,
+                                                                          self.model.daleks,
+                                                                          self.model.scrapHeaps)
+                        self.view.printGameOver()
+
+
         def startGame(self):
                 # Everything has been inited in the Views and the Model Constructors
-                userAction = self.view.refresh(self.model.gameboard, 
-                                                                          self.model.doctor, 
-                                                                          self.model.daleks, 
+                self.view.refresh(self.model.gameboard,
+                                                                          self.model.doctor,
+                                                                          self.model.daleks,
                                                                           self.model.scrapHeaps)
+                userAction = self.view.getAction()
 
                 if userAction == UserAction.ZAP:
-                        self.model.zap() # ZAP
+                        returnCode = self.model.zap() # ZAP
                 elif userAction == UserAction.TELEPORT:
-                        self.model.teleportDoctor() # TELEPORT
+                        returnCode = self.model.teleportDoctor() # TELEPORT
+                elif userAction == UserAction.EXIT_GAME:
+                        exit()
                 else:
                          returnCode = self.model.moveDoctor(userAction) # MOVE
                 if returnCode == ReturnCodes.SUCCESS:
-                        self.model.moveDaleks()
-                        return ReturnCodes.SUCCESS
+                         returnCode = self.model.moveDaleks()
                 return returnCode
-                
-       
 
-                
+
+
+
 
 if __name__ == '__main__':
         game = Controller()

@@ -8,7 +8,7 @@ class View(object):
         """docstring for View"""
         def __init__(self):
                 super(View, self).__init__()
-                self.commands = ["q", "w", "e", "a", "s", "d", "z","x","c"," ","t"]
+                self.commands = ["q", "w", "e", "a", "s", "d", "z","x","c"," ","t", "exit"]
                 self.DALEK = "X"
                 self.SCRAP_HEAP = "S"
                 self.DOCTOR = "D"
@@ -20,7 +20,7 @@ class View(object):
                 while self.sanitizeInput(value) == False:
                         value = input(text)
                 return value
-        
+
 
         def actionFromInput(self, userInput):
                 if userInput == "q":
@@ -45,7 +45,9 @@ class View(object):
                         return UserAction.ZAP
                 if userInput == "t":
                         return UserAction.TELEPORT
-                
+                if userInput == "exit":
+                        return UserAction.EXIT_GAME
+
 
         def sanitizeInput(self, userInput):
                 return userInput in self.commands
@@ -58,9 +60,9 @@ class View(object):
         def displayGameboard(self, gameboard, dr, daleks, scrapHeaps):
                 boardUI = self.generateMatrix(gameboard, dr, daleks, scrapHeaps)
                 for y in range(0,gameboard.y-1):
-                         print(y,end='')
+                         print(y,end=' ')
                          for x in range(0,gameboard.x-1):
-                                print(boardUI[x][y],end='')
+                                print(boardUI[x][y],end=' ')
                          print("")
 
         def generateMatrix(self, gameboard, dr, daleks, scrapHeaps):
@@ -80,13 +82,20 @@ class View(object):
         def refresh(self, gameboard, dr, daleks, scrapHeap):
                 self.displayCosmicPoints(dr.nbPoints)
                 self.displayGameboard(gameboard, dr, daleks, scrapHeap)
-                return self.actionFromInput(self.waitForInput())
-
-        
-               
 
 
+        def getAction(self):
+            return self.actionFromInput(self.waitForInput())
+
+        def printGameOver(self):
+            print("GAME OVER: DOCTOR DEAD!")
 
 
-                
-                
+
+
+
+
+
+
+
+

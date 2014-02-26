@@ -160,6 +160,7 @@ class Model(object):
     def detectCollision(self):
                 for dalek in self.daleks:
                     deadDaleks = self.getDaleksAtPosition(dalek.position)
+                    deadDaleks.remove(dalek)
                     if deadDaleks:
                         for deadDalek in deadDaleks:
                             self.createScrapHeap(dalek.position)

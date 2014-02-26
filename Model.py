@@ -17,7 +17,7 @@ class Model(object):
 
 
     def reset(self):
-        self.initGameboard(20+self.level,30+self.level)
+        self.initGameboard(20,30)
         self.initDoctor()
         self.initDalekArmy()
 

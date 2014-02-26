@@ -2,6 +2,6 @@ Daleks
 ======
 
 Known Bugs:
-- Téléportation Doctor off bounds
-- Initialisation des daleks off bounds
-- Initialisation des daleks ==> scrapheap en début de partie
+- Téléportation Doctor off bounds -  FIXED
+- Initialisation des daleks off bounds - FIXED
+- Initialisation des daleks ==> scrapheap en début de partie _ FIXED

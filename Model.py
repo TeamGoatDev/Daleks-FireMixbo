@@ -135,8 +135,8 @@ class Model(object):
 
 
     def moveDaleks(self):
-        for i in range(len(self.daleks)):
-            self.daleks[i].move(self.doctor.position)
+        for dalek in self.daleks:
+            dalek.move(self.doctor.position)
         self.detectCollision()
         if self.isDoctorDead(self.doctor.position):
             return ReturnCodes.DEAD_DOCTOR
@@ -167,7 +167,11 @@ class Model(object):
                             self.createScrapHeap(dalek.position)
                             self.killDalek(deadDalek)
 
-
+                for scrapHeap in self.scrapHeaps:
+                    deadDaleks = self.getDaleksAtPosition(scrapHeap.position)
+                    if deadDaleks:
+                        for deadDalek in deadDaleks:
+                            self.killDalek(deadDalek)
 
 
 

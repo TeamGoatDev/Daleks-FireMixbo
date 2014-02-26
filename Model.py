@@ -54,9 +54,12 @@ class Model(object):
         self.doctor.position.x = int(self.gameboard.x/2)
         self.doctor.position.y = int(self.gameboard.y/2)
 
-    def isDoctorSafe(self):
-        pass
+    def isDoctorSafe(self, positionTempo):
+        for scrap in self.scrapHeaps:
+            if scrap.position.x == positionTempo.x and scrap.position.y == positionTempo.y:
+                return 0
 
+        return 1
 
 
     def zap(self):
@@ -82,7 +85,20 @@ class Model(object):
 
     def teleportDoctor(self):
 
-        pass
+        collisionFound = 0
+        while not collisionFound:
+            x = random.randint(0,self.gameboard.x-1)
+            y = random.randint(0,self.gameboard.y-1)
+
+            positionTempo = Position(x,y)
+            collisionFound = self.getDaleksAtPosition(positionTempo)
+            if not collisionFound:
+                collisionFound = isDoctorSafe(positionTempo)
+                
+        self.doctor.position = positionTempo
+        return ReturnCodes.SUCCESS
+
+
 
     def moveDoctor(self, direction):
         """ the direction parameter is a UserAction MOVE_* """

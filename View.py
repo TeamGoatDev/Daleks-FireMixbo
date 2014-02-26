@@ -60,7 +60,6 @@ class View(object):
         def displayGameboard(self, gameboard, dr, daleks, scrapHeaps):
                 boardUI = self.generateMatrix(gameboard, dr, daleks, scrapHeaps)
                 for y in range(0,gameboard.y-1):
-                         print(y,end=' ')
                          for x in range(0,gameboard.x-1):
                                 print(boardUI[x][y],end=' ')
                          print("")

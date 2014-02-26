@@ -93,7 +93,7 @@ class Model(object):
             positionTempo = Position(x,y)
             collisionFound = self.getDaleksAtPosition(positionTempo)
             if not collisionFound:
-                collisionFound = isDoctorSafe(positionTempo)
+                collisionFound = self.isDoctorSafe(positionTempo)
                 
         self.doctor.position = positionTempo
         return ReturnCodes.SUCCESS

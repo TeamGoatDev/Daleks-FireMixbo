@@ -6,3 +6,4 @@ class ReturnCodes():
     DEAD_DOCTOR    = Enum.addId()
     END_TURN       = Enum.addId()
     SUCCESS	       = Enum.addId()
+    END_WAVE	   = Enum.addId()

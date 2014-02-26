@@ -149,13 +149,14 @@ class Model(object):
         self.scrapHeaps.append(scrapHeap)
 
     def killDalek(self, dalek):
-        self.daleks.pop(self.daleks.index(dalek))
+        self.daleks.remove(dalek)
 
     def getDaleksAtPosition(self, position):
         daleksAtPos = []
         for dalek in self.daleks:
             if dalek.position.x == position.x and dalek.position.y == position.y:
                 daleksAtPos.append(dalek)
+        return daleksAtPos
 
     def detectCollision(self):
                 for dalek in self.daleks:

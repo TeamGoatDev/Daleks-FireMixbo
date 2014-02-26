@@ -59,6 +59,16 @@ class Model(object):
             if scrap.position.x == positionTempo.x and scrap.position.y == positionTempo.y:
                 return 0
 
+        for i in range(3):
+            for j in range(3):
+                x = -1+i
+                y = -1+j
+
+                posDalekRange = Position(positionTempo.x+x,positionTempo.y+y)
+
+                if self.getDaleksAtPosition(posDalekRange):
+                    return 0
+
         return 1
 
 

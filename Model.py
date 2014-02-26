@@ -179,6 +179,7 @@ class Model(object):
 
     def killDalek(self, dalek):
         self.daleks.remove(dalek)
+        self.doctor.nbPoints += 1
 
     def getDaleksAtPosition(self, position):
         daleksAtPos = []

@@ -81,6 +81,7 @@ class Model(object):
 
 
     def teleportDoctor(self):
+
         pass
 
     def moveDoctor(self, direction):
@@ -140,6 +141,8 @@ class Model(object):
         self.detectCollision()
         if self.isDoctorDead(self.doctor.position):
             return ReturnCodes.DEAD_DOCTOR
+        elif not self.daleks:
+            return ReturnCodes.END_WAVE
         else:
             return ReturnCodes.SUCCESS
 

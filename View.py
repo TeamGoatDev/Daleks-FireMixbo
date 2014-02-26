@@ -61,7 +61,7 @@ class View(object):
                 boardUI = self.generateMatrix(gameboard, dr, daleks, scrapHeaps)
                 for y in range(0,gameboard.y-1):
                          for x in range(0,gameboard.x-1):
-                                print(boardUI[x-1][y-1],end=' ')
+                                print(boardUI[x][y],end=' ')
                          print("")
 
         def generateMatrix(self, gameboard, dr, daleks, scrapHeaps):

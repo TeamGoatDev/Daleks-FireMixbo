@@ -35,23 +35,29 @@ class View(Frame):
 
 
 
+
+
+
     def initCanvas(self):
-        canvas = GoatCanvas(self)
-        #Stats bar
+        
+
 
 
         # Gameboard
 
         gameboardWidth = self.width-50
         gameboardHeight = self.height-50
-        gameboardPos = ((self.width-gameboardWidth)/2, (self.height-gameboardHeight)/2)
+        gameboardPos = (500,500)
+
+        gameBoardFrame = Frame(self, width=gameboardWidth, height=gameboardHeight)
+        canvas = GoatCanvas(gameBoardFrame)
 
 
         canvas.create_rectangle(gameboardPos[0],gameboardPos[1],gameboardPos[0]+gameboardWidth,gameboardPos[1]+gameboardHeight, outline="#bdc3c7", fill="#ecf0f1")
 
 
-        nbRows = 20
-        nbCells = 30
+        nbRows = 15
+        nbCells = 15
 
         for j in range(nbCells):
             for i in range(nbRows):
@@ -64,6 +70,20 @@ class View(Frame):
                 canvas.create_rectangle(x1,y1,x2,y2)
                 # Dalek Test
                 canvas.create_triangle(x1,y1,sizeX,sizeY,"#27ae60","#2ecc71")
+
+
+
+        #Stats bar
+
+        statusBar = Frame(self, width=gameboardWidth, height=gameboardHeight )
+        labelScoreText = Label(statusBar, text="Score: ")
+        labelScoreValue = Label(statusBar, text="0")
+
+
+        labelScoreText.pack(side=LEFT)
+        labelScoreValue.pack(side=LEFT)
+
+        statusBar.pack()
 
         canvas.pack(fill=BOTH, expand=1)
 

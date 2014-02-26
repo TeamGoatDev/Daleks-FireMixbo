@@ -13,12 +13,18 @@ class Controller(object):
                 returnCode = ReturnCodes.SUCCESS
                 while returnCode != ReturnCodes.DEAD_DOCTOR:
                         returnCode = self.startGame()
+                        if returnCode == ReturnCodes.END_WAVE:
+		                	self.model.level += 1
+		                	self.model.reset()
+
                 if returnCode == ReturnCodes.DEAD_DOCTOR:
                         self.view.refresh(self.model.gameboard,
                                                                           self.model.doctor,
                                                                           self.model.daleks,
                                                                           self.model.scrapHeaps)
                         self.view.printGameOver()
+                
+                
 
 
         def startGame(self):

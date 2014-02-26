@@ -124,9 +124,9 @@ class Model(object):
 
 
     def canDoctorMove(self, position):
-        if position.x < 1 or position.x > self.gameboard.x:
+        if position.x < 0 or position.x > self.gameboard.x-1:
             return False
-        if position.y < 1 or position.y > self.gameboard.y:
+        if position.y < 0 or position.y > self.gameboard.y-1:
             return False
         if self.isDoctorDead(position): #Test whether or not the doctor is commiting suicide
             return False

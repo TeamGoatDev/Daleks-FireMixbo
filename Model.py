@@ -168,6 +168,7 @@ class Model(object):
         if self.isDoctorDead(self.doctor.position):
             return ReturnCodes.DEAD_DOCTOR
         elif not self.daleks:
+            self.scrapHeaps = []
             return ReturnCodes.END_WAVE
         else:
             return ReturnCodes.SUCCESS

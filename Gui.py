@@ -1,99 +1,159 @@
 #!/usr/bin/python
 # -*- encoding: utf-8 -*-
-
-
-
+#Python 3.x
 from tkinter import *
-
-class GoatCanvas(Canvas):
-    def __init__(self, parent):
-        Canvas.__init__(self, parent)
-
-    def create_triangle(self, x,y, width, height, outlineColor,fillColor):
-        points = [0+x, height+y,     int(width/2)+x, 0+y,     width+x,height+y ]
-        self.create_polygon(points, outline=outlineColor, fill=fillColor, width=1)
-
-    def create_square(self, x,y,width):
-        self.create_rectangle(x,y,x+width,y+width)
+from tkinter import ttk
+from GuiGoat import *
 
 
-class View(Frame):
-    def __init__(self, parent=Tk()):
+COLOR_PRIMARY = "#c0392b" #
+
+
+class GameBoardUI(Frame):
+    """docstring for GameBoardUI"""
+    def __init__(self, parent, rows,columns, squareSize, background,foreground):
+        self.rows = rows
+        self.columns = columns
+        self.squareSize = squareSize
+        self.background = background
+        self.foreground = foreground
+
+        self.scrapHeap = []
+        self.daleks = []
+        self.doctor = None
+
+
+
+        canvasWidth = columns * squareSize
+        canvasHeight = rows * squareSize
+
         Frame.__init__(self,parent)
-        self.parent = parent
-        self.initUI()
+        self.canvas = Canvas(self, width=canvasWidth, height=canvasHeight, background=self.background)
+        self.canvas.pack(fill=BOTH, expand=True)
+        self.draw()
 
-    def initUI(self):
-        self.parent.title("DALEK vs DR. WHO")
-        self.width  = 800
-        self.height = 600
-        self.parent.geometry(str(self.width)+"x"+str(self.height) )
-        self.pack(fill=BOTH, expand=1)
+    def drawDoctor(self, x,y):
+        self.img = PhotoImage(file="img/doctor2.gif")
+        scale_w = int(self.img.width()/self.squareSize)
+        scale_h = int(self.img.height()/self.squareSize)
+        print(scale_w, scale_h)
+        self.img = self.img.subsample(scale_w,scale_h)
+        self.canvas.create_image((x+self.img.width()/2,y+self.img.height()/2), image=self.img)
 
-        self.initCanvas()
+    def drawDalek(self, x,y):
+        self.img = PhotoImage(file="img/dalek.gif")
+        scale_w = int(self.img.width()/self.squareSize)
+        scale_h = int(self.img.height()/self.squareSize)
+        self.img = self.img.subsample(scale_w,scale_h)
+        self.canvas.create_image((x+self.img.width()/2,y+self.img.height()/2), image=self.img)
 
 
+    def drawScrapHeap(self, x,y):
+        self.img = PhotoImage(file="img/scrapHeap.gif")
+        scale_w = int(self.img.width()/self.squareSize)
+        scale_h = int(self.img.height()/self.squareSize)
+        self.img = self.img.subsample(scale_w,scale_h)
+        self.canvas.create_image((x+self.img.width()/2,y+self.img.height()/2), image=self.img)    
 
 
+    def draw(self):
+        self.canvas.delete()
+        for row in range(self.rows):
+            for column in range(self.columns):
+                x1 = (column * self.squareSize)
+                y1 = (row * self.squareSize)
+                x2 = x1 + self.squareSize
+                y2 = y1 + self.squareSize
+                self.canvas.create_rectangle(x1,y1,x2,y2, outline=self.background, width=2,
+                    fill=self.foreground, activefill=COLOR_PRIMARY, tags="cell")
+                if row == self.rows/2:
+                	if column == self.columns/2:
+                		self.drawDoctor(x1,y1)
+                
 
 
-
-    def initCanvas(self):
         
 
 
-
-        # Gameboard
-
-        gameboardWidth = self.width-50
-        gameboardHeight = self.height-50
-        gameboardPos = (500,500)
-
-        gameBoardFrame = Frame(self, width=gameboardWidth, height=gameboardHeight)
-        canvas = GoatCanvas(gameBoardFrame)
+class App(object):
+    """docstring for App"""
+    def __init__(self):
+        self.parent = Window()
+        self.initUI()
 
 
-        canvas.create_rectangle(gameboardPos[0],gameboardPos[1],gameboardPos[0]+gameboardWidth,gameboardPos[1]+gameboardHeight, outline="#bdc3c7", fill="#ecf0f1")
-
-
-        nbRows = 15
-        nbCells = 15
-
-        for j in range(nbCells):
-            for i in range(nbRows):
-                sizeX = gameboardWidth/nbRows
-                sizeY = gameboardHeight/nbCells
-                x1 = (i*sizeX)+gameboardPos[0]
-                y1 = (j*sizeY)+gameboardPos[1]
-                x2 = x1+sizeX
-                y2 = y1+sizeY
-                canvas.create_rectangle(x1,y1,x2,y2)
-                # Dalek Test
-                canvas.create_triangle(x1,y1,sizeX,sizeY,"#27ae60","#2ecc71")
+    def styleButton(self, button):
+        button['background'] = COLOR_PRIMARY
+        button['borderwidth'] = 0
+        button['foreground'] = "#ecf0f1"
 
 
 
-        #Stats bar
+    def run(self):
+        self.parent.run()
 
-        statusBar = Frame(self, width=gameboardWidth, height=gameboardHeight )
-        labelScoreText = Label(statusBar, text="Score: ")
-        labelScoreValue = Label(statusBar, text="0")
+    def initUI(self):
+        self.width = 680
+        self.height = 500
+        self.frame = Frame(self.parent.mainFrame)
+        self.frame.grid(row=0,column=0, sticky=N+W+E+S, padx=20,pady=20 )
 
-
-        labelScoreText.pack(side=LEFT)
-        labelScoreValue.pack(side=LEFT)
-
-        statusBar.pack()
-
-        canvas.pack(fill=BOTH, expand=1)
+        self.initStatsBar()
+        self.initGameBoard()
 
 
 
+        
+
+
+    def initStatsBar(self):
+        # STATISTIC BAR
+
+        frameStats = Frame(self.frame, height=20,  bg=COLOR_PRIMARY)
+        frameStats.grid(row=0,column=0, columnspan=2, sticky=E+W,pady=5)
+        frameStats.color = COLOR_PRIMARY
+  
+
+        self.labelScore = Label(frameStats, text="Crédits cosmiques:", width=35, background=frameStats.color)
+        self.labelScore.grid(row=0,column=0, sticky=N+W+E)
 
 
 
+        self.labelNbDaleks = Label(frameStats, text="Nombre de Daleks:", width=42, background=frameStats.color)
+        self.labelNbDaleks.grid(row=0,column=1)
 
+
+        self.labelWave = Label(frameStats, text="Vague:",  width=35, background=frameStats.color)
+        self.labelWave.grid(row=0,column=2, sticky=E) 
+
+        self.labelZappeur = Label(frameStats, text="Zappeur:",  width=35, background=frameStats.color)
+        self.labelZappeur.grid(row=0,column=3, sticky=E) 
+
+        
+
+    def initGameBoard(self):
+        self.gameBoardFrame = Frame(self.frame)
+        self.gameBoardFrame.grid(row=1,column=0, sticky=N+S+W+E)
+
+        gameBoard = GameBoardUI(self.gameBoardFrame, 20, 30, 32, "#BDC3C7","#ECF0F1")
+        gameBoard.pack(side=TOP, fill=BOTH, expand="true", padx=4, pady=4)
+
+        frameButton = Frame(self.frame)
+        frameButton.grid(row=1, column=1)
+
+        self.btnTeleport = Button(frameButton, text="Teleporter")
+        self.styleButton(self.btnTeleport)
+        self.btnTeleport.pack(fill=X)
+
+        self.btnZap = Button(frameButton, text="Zapper")
+        self.styleButton(self.btnZap)
+        self.btnZap.pack(fill=X, pady=5)
+
+
+def main():
+    app = App()
+    app.run()
+
+    
 if __name__ == '__main__':
-    view = View()
-
-    view.mainloop()
+    main()

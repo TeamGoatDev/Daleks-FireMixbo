@@ -1,22 +1,28 @@
 from Model import *
 from UserActions import *
-
+from ReturnCodes import *
 import sys
 
 
 class Controller(object):
         """docstring for Controller"""
-        def __init__(self):
+        def __init__(self, interface):
                 super(Controller, self).__init__()
                 self.view = App()
                 self.model = Model()
                 self.listenEvent=None #will change when user inputs something
                 self.view.callback = self.gameLoop #The View will call al the changes here
                 if interface == "GUI":
-                  self.view.run()
+                   self.view.refresh(self.model.gameboard,
+                                          self.model.doctor,
+                                          self.model.daleks,
+                                          self.model.scrapHeaps,
+                                          self.model.level
+                                          )
+                   self.view.run()
                 elif interface == "CLI":
                   self.view.getAction()
-                self.gameLoop()
+                  self.gameLoop()
 
         # Has to be looped by the view manually
         def gameLoop(self, userAction):
@@ -24,8 +30,7 @@ class Controller(object):
                 if returnCode != ReturnCodes.DEAD_DOCTOR:
                         returnCode = self.playTurn(userAction)
                         if returnCode == ReturnCodes.END_WAVE:
-                                        self.model.level += 1
-                                        self.model.reset()
+                                        self.model.changeLevel()
 
                 if returnCode == ReturnCodes.DEAD_DOCTOR:
                         self.view.refresh(self.model.gameboard,
@@ -35,6 +40,12 @@ class Controller(object):
                                           self.model.level
                                           )
                         self.view.printGameOver()
+                self.view.refresh(self.model.gameboard,
+                                          self.model.doctor,
+                                          self.model.daleks,
+                                          self.model.scrapHeaps,
+                                          self.model.level
+                                          )
                 
                 
 
@@ -68,13 +79,17 @@ class Controller(object):
 
 if __name__ == '__main__':
         #Get Parametre
-        interface = str(sys.argv[1])
+        try:
+          interface = str(sys.argv[1])
+        except IndexError:
+            print("interface non specifie, veuillez specifier( GUI, CLI )")
+            sys.exit(1)
         if interface == "GUI":
           from dalekGUI import *
         elif interface == "CLI":
           from View import *
 
-        game = Controller()
+        game = Controller(interface)
         #si param = CLI COntroller.vue == CLI()
         #Sinon Controller.vue == GUI
 

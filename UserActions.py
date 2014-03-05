@@ -1,4 +1,3 @@
-
 class Enum(object):
 	"""docstring for Enum"""
 	def __init__(self):
@@ -26,5 +25,6 @@ class UserAction:
 
         ZAP      = Enum.addId()
         TELEPORT = Enum.addId()
-
+	
+	START_GAME = Enum.addId()
         EXIT_GAME = Enum.addId()

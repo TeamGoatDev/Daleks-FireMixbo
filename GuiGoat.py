@@ -1,5 +1,8 @@
 #Python 3.x
+<<<<<<< HEAD
+=======
 #Small GUI Framework based on Tkinter
+>>>>>>> e08d610b4bafe9953cccf45b64c66b805e512c06
 from tkinter import *
 from tkinter import ttk
 

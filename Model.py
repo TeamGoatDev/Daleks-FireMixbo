@@ -10,6 +10,7 @@ class Model(object):
     def __init__(self):
         super(Model, self).__init__()
         self.level = 1
+        self.doctor = Doctor()
         self.daleks = []
         self.scrapHeaps = []
 
@@ -17,8 +18,10 @@ class Model(object):
 
 
     def reset(self):
-        self.initGameboard(20,30)
+        self.scrapHeaps = []
+        self.initGameboard(30,20)
         self.initDoctor()
+        self.doctor.nbZappeurs += 1
         self.initDalekArmy()
 
 
@@ -50,26 +53,26 @@ class Model(object):
 
 
     def initDoctor(self):
-        self.doctor = Doctor()
         self.doctor.position.x = int(self.gameboard.x/2)
         self.doctor.position.y = int(self.gameboard.y/2)
 
     def isDoctorSafe(self, positionTempo):
         for scrap in self.scrapHeaps:
             if scrap.position.x == positionTempo.x and scrap.position.y == positionTempo.y:
-                return 0
+                return False #PAS SAFE
 
         for i in range(3):
             for j in range(3):
                 x = -1+i
                 y = -1+j
 
+                #print("(",x,y,")")
                 posDalekRange = Position(positionTempo.x+x,positionTempo.y+y)
 
                 if self.getDaleksAtPosition(posDalekRange):
-                    return 0
+                    return False 
 
-        return 1
+        return True
 
 
     def zap(self):
@@ -86,10 +89,11 @@ class Model(object):
 
             zapPos = [N, S, E, W, NW, NE, SW, SE]
             for position in zapPos:
-                deadDaleks = getDaleksAtPosition(position)
+                deadDaleks = self.getDaleksAtPosition(position)
                 if deadDaleks:
                     for dalek in deadDaleks:
                         self.killDalek(dalek)
+        return ReturnCodes.SUCCESS
 
 
 
@@ -180,7 +184,7 @@ class Model(object):
 
     def killDalek(self, dalek):
         self.daleks.remove(dalek)
-        self.doctor.nbPoints += 1
+        self.doctor.nbPoints += 12
 
     def getDaleksAtPosition(self, position):
         daleksAtPos = []

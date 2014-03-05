@@ -15,12 +15,8 @@ class Controller(object):
                 if interface == "GUI":
                   self.view.run()
                 elif interface == "CLI":
-                  self.view.refresh(self.model.gameboard,
-                                  self.model.doctor,
-                                  self.model.daleks,
-                                  self.model.scrapHeaps,
-                                  self.model.level)
-                  userAction = self.view.getAction()
+                  self.view.getAction()
+                self.gameLoop()
 
         # Has to be looped by the view manually
         def gameLoop(self, userAction):
@@ -61,7 +57,8 @@ class Controller(object):
                 elif userAction == UserAction.EXIT_GAME:
                         exit(0)
                 else:
-                         returnCode = self.model.moveDoctor(userAction) # MOVE
+                        print("IM MOOOVING")
+                        returnCode = self.model.moveDoctor(userAction) # MOVE
                 if returnCode == ReturnCodes.SUCCESS:
                          returnCode = self.model.moveDaleks()
                 return returnCode
@@ -80,4 +77,6 @@ if __name__ == '__main__':
         game = Controller()
         #si param = CLI COntroller.vue == CLI()
         #Sinon Controller.vue == GUI
-        game.gameLoop()
+
+       # if interface == "GUI"
+       #  game.gameLoop()

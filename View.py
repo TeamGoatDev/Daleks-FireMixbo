@@ -84,8 +84,9 @@ class App(object):
 
 
         def getAction(self):
-            action = self.actionFromInput(self.waitForInput())
-            self.callback(action)
+            while(1):
+                action = self.actionFromInput(self.waitForInput())
+                self.callback(action)
 
         def printGameOver(self):
             print("GAME OVER: DOCTOR DEAD!")

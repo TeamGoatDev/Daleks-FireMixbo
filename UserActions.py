@@ -25,6 +25,6 @@ class UserAction:
 
         ZAP      = Enum.addId()
         TELEPORT = Enum.addId()
-	
-	START_GAME = Enum.addId()
+
+        START_GAME = Enum.addId()
         EXIT_GAME = Enum.addId()

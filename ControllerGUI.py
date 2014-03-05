@@ -8,7 +8,7 @@ class Controller(object):
         """docstring for Controller"""
         def __init__(self, interface):
                 super(Controller, self).__init__()
-                self.view = None
+                self.view = App()
                 self.model = Model()
                 
                 self.view.callback = self.gameLoop #The View will notify the inputs calling this method

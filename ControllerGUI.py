@@ -14,6 +14,7 @@ class Controller(object):
                 self.view.callback = self.gameLoop #The View will notify the inputs calling this method
                 if interface == "GUI":
                    self.view = GUI()
+                   self.view.callback = self.gameLoop #The View will notify the inputs calling this method
                    self.view.refresh(self.model.gameboard,
                                           self.model.doctor,
                                           self.model.daleks,

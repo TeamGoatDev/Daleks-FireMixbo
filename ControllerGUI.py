@@ -8,11 +8,12 @@ class Controller(object):
         """docstring for Controller"""
         def __init__(self, interface):
                 super(Controller, self).__init__()
-                self.view = App()
+                self.view = None
                 self.model = Model()
-                self.listenEvent=None #will change when user inputs something
-                self.view.callback = self.gameLoop #The View will call al the changes here
+                
+                self.view.callback = self.gameLoop #The View will notify the inputs calling this method
                 if interface == "GUI":
+                   self.view = GUI()
                    self.view.refresh(self.model.gameboard,
                                           self.model.doctor,
                                           self.model.daleks,
@@ -21,6 +22,7 @@ class Controller(object):
                                           )
                    self.view.run()
                 elif interface == "CLI":
+                  self.view = CLI()
                   self.view.getAction()
                   self.gameLoop()
 

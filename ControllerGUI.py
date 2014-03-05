@@ -1,8 +1,6 @@
 from Model import *
-from View import *
 from UserActions import *
 
-from dalekGUI import *
 import sys
 
 
@@ -14,7 +12,15 @@ class Controller(object):
                 self.model = Model()
                 self.listenEvent=None #will change when user inputs something
                 self.view.callback = self.gameLoop #The View will call al the changes here
-                self.view.run()
+                if interface == "GUI":
+                  self.view.run()
+                elif interface == "CLI":
+                  self.view.refresh(self.model.gameboard,
+                                  self.model.doctor,
+                                  self.model.daleks,
+                                  self.model.scrapHeaps,
+                                  self.model.level)
+                  userAction = self.view.getAction()
 
         # Has to be looped by the view manually
         def gameLoop(self, userAction):
@@ -65,11 +71,11 @@ class Controller(object):
 
 if __name__ == '__main__':
         #Get Parametre
-        print(str(sys.argv))
-        if str(sys.argv[0]) == "CLI":
-          print("CLI")
-
-
+        interface = str(sys.argv[1])
+        if interface == "GUI":
+          from dalekGUI import *
+        elif interface == "CLI":
+          from View import *
 
         game = Controller()
         #si param = CLI COntroller.vue == CLI()

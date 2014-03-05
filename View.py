@@ -4,10 +4,10 @@ import sys
 from UserActions import *
 
 
-class View(object):
-        """docstring for View"""
+class App(object):
+        """docstring for App"""
         def __init__(self):
-                super(View, self).__init__()
+                super(App, self).__init__()
                 self.commands = ["q", "w", "e", "a", "s", "d", "z","x","c"," ","t", "exit"]
                 self.DALEK = "X"
                 self.SCRAP_HEAP = "S"
@@ -76,21 +76,19 @@ class View(object):
                         boardUI[scrapHeap.position.x][scrapHeap.position.y] = self.SCRAP_HEAP
                 return boardUI
 
+        
 
-
-        def refresh(self, gameboard, dr, daleks, scrapHeap):
+        def refresh(self, gameboard, dr, daleks, scrapHeap, level):
                 self.displayCosmicPoints(dr.nbPoints)
                 self.displayGameboard(gameboard, dr, daleks, scrapHeap)
 
 
         def getAction(self):
-            return self.actionFromInput(self.waitForInput())
+            action = self.actionFromInput(self.waitForInput())
+            self.callback(action)
 
         def printGameOver(self):
             print("GAME OVER: DOCTOR DEAD!")
-
-
-
 
 
 

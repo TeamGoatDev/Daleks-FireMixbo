@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #Python 3.x
 from tkinter import *
 from tkinter import ttk
@@ -79,7 +78,6 @@ def main():
 
 if __name__ == '__main__':
     main()
-=======
 from tkinter import *
 import os
 
@@ -237,4 +235,3 @@ def main():
 
 if __name__ == '__main__':
     main() 
->>>>>>> e08d610b4bafe9953cccf45b64c66b805e512c06

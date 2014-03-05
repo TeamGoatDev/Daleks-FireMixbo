@@ -24,8 +24,7 @@ class Controller(object):
                 if returnCode != ReturnCodes.DEAD_DOCTOR:
                         returnCode = self.playTurn(userAction)
                         if returnCode == ReturnCodes.END_WAVE:
-                                        self.model.level += 1
-                                        self.model.reset()
+                                        self.model.changeLevel()
 
                 if returnCode == ReturnCodes.DEAD_DOCTOR:
                         self.view.refresh(self.model.gameboard,
@@ -35,6 +34,12 @@ class Controller(object):
                                           self.model.level
                                           )
                         self.view.printGameOver()
+                self.view.refresh(self.model.gameboard,
+                                          self.model.doctor,
+                                          self.model.daleks,
+                                          self.model.scrapHeaps,
+                                          self.model.level
+                                          )
                 
                 
 

@@ -143,11 +143,23 @@ class App(object):
 
         self.btnTeleport = Button(frameButton, text="Teleporter")
         self.styleButton(self.btnTeleport)
-        self.btnTeleport.pack(fill=X)
+        #self.btnTeleport.pack(fill=X)
 
         self.btnZap = Button(frameButton, text="Zapper")
         self.styleButton(self.btnZap)
+        #self.btnZap.pack(fill=X, pady=5)
+
+        self.btnCommencer = Button(frameButton, text="Commencer" command=self.startGame)
+        self.styleButton(self.btnCommencer)
+        self.btnCommencer.pack(fill=X, pady=5)
+
+
+    def startGame(self):
+        self.btnTeleport.pack(fill=X)
         self.btnZap.pack(fill=X, pady=5)
+        self.btnCommencer = None
+
+
 
 
 def main():

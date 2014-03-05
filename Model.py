@@ -24,7 +24,10 @@ class Model(object):
         self.doctor.nbZappeurs += 1
         self.initDalekArmy()
 
-
+    def changeLevel(self):
+        self.level += 1
+        self.reset()
+        
     def initGameboard(self,x,y):
         self.gameboard = Gameboard(x,y)
 

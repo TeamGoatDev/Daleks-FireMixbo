@@ -80,8 +80,8 @@ class GameBoardUI(Frame):
 
 
 
-class App(object):
-    """docstring for App"""
+class GUI(object):
+    """docstring for GUI"""
     def __init__(self):
         self.parent = Window()
 
@@ -254,7 +254,7 @@ class App(object):
 
 
 def main():
-    app = App()
+    app = GUI()
     app.run()
 
     

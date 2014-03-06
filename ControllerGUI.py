@@ -8,10 +8,10 @@ class Controller(object):
         """docstring for Controller"""
         def __init__(self, interface):
                 super(Controller, self).__init__()
-                self.view = App()
+                #self.view = App()
                 self.model = Model()
                 
-                self.view.callback = self.gameLoop #The View will notify the inputs calling this method
+                #self.view.callback = self.gameLoop #The View will notify the inputs calling this method
                 if interface == "GUI":
                    self.view = GUI()
                    self.view.callback = self.gameLoop #The View will notify the inputs calling this method
@@ -23,7 +23,8 @@ class Controller(object):
                                           )
                    self.view.run()
                 elif interface == "CLI":
-                  self.view = CLI()
+                  self.view = Cli()
+                  self.view.callback = self.gameLoop
                   self.view.getAction()
                   self.gameLoop()
 
@@ -90,7 +91,7 @@ if __name__ == '__main__':
         if interface == "GUI":
           from dalekGUI import *
         elif interface == "CLI":
-          from View import *
+          from Cli import *
 
         game = Controller(interface)
         #si param = CLI COntroller.vue == CLI()

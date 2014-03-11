@@ -25,8 +25,8 @@ class Window(Frame):
         # BASIC DEFAULT PARAMETERS
         self.color = "#21262C"
         self.title = "Window"
-        self.width = 800
-        self.height = 560
+        self.width = 10
+        self.height = 10
         self.update()
         
         

@@ -1,34 +1,42 @@
 from Model import *
-from View import *
 from UserActions import *
-
-from dalekGUI import *
+from ReturnCodes import *
 import sys
 
 
 class Controller(object):
         """docstring for Controller"""
-        def __init__(self):
+        def __init__(self, interface):
                 super(Controller, self).__init__()
-                self.view = View()
+                self.view = App()
                 self.model = Model()
                 self.listenEvent=None #will change when user inputs something
-                self.view.callback = self.listenInput #The View will call al the changes here
-                self.view.run()
+                self.view.callback = self.gameLoop #The View will call al the changes here
+                if interface == "GUI":
+                   self.view.refresh(self.model.gameboard,
+                                          self.model.doctor,
+                                          self.model.daleks,
+                                          self.model.scrapHeaps,
+                                          self.model.level
+                                          )
+                   self.view.run()
+                elif interface == "CLI":
+                  self.view.refresh(self.model.gameboard,
+                                          self.model.doctor,
+                                          self.model.daleks,
+                                          self.model.scrapHeaps,
+                                          self.model.level
+                                          )
+                  self.view.getAction()
+                  #self.gameLoop()
 
         # Has to be looped by the view manually
-        def gameLoop(self):
+        def gameLoop(self, userAction):
                 returnCode = ReturnCodes.SUCCESS
                 if returnCode != ReturnCodes.DEAD_DOCTOR:
-                        returnCode = self.startGame()
+                        returnCode = self.playTurn(userAction)
                         if returnCode == ReturnCodes.END_WAVE:
-<<<<<<< HEAD
-                                        self.model.level += 1
-                                        self.model.reset()
-=======
-                          self.model.level += 1
-                          self.model.reset()
->>>>>>> e08d610b4bafe9953cccf45b64c66b805e512c06
+                                        self.model.changeLevel()
 
                 if returnCode == ReturnCodes.DEAD_DOCTOR:
                         self.view.refresh(self.model.gameboard,
@@ -38,21 +46,22 @@ class Controller(object):
                                           self.model.level
                                           )
                         self.view.printGameOver()
+                        sys.exit(0)
+
+
+                self.view.refresh(self.model.gameboard,
+                                          self.model.doctor,
+                                          self.model.daleks,
+                                          self.model.scrapHeaps,
+                                          self.model.level
+                                          )
                 
                 
-        def listenInput(self, returnCode=None):
-            self.listenEvent = returnCode
-            #Wait for change
-            while(returnCode == None):
-              pass
-            #Something changed
-            returnCode = self.listenEvent
-            self.listenEvent = None; #Reset
-            return returnCode
 
 
 
-        def startGame(self):
+
+        def playTurn(self, userAction):
                 # Everything has been inited in the Views and the Model Constructors
                 self.view.refresh(self.model.gameboard,
                                   self.model.doctor,
@@ -60,18 +69,20 @@ class Controller(object):
                                   self.model.scrapHeaps,
                                   self.model.level)
 
-                userAction = self.ListenInput()
-
+                print("CONTROLLER >>> MODEL")
                 if userAction == UserAction.ZAP:
                         returnCode = self.model.zap() # ZAP
                 elif userAction == UserAction.TELEPORT:
                         returnCode = self.model.teleportDoctor() # TELEPORT
                 elif userAction == UserAction.EXIT_GAME:
-                        exit()
+                        sys.exit(0)
                 else:
-                         returnCode = self.model.moveDoctor(userAction) # MOVE
+                        print("IM MOOOVING")
+                        returnCode = self.model.moveDoctor(userAction) # MOVE
                 if returnCode == ReturnCodes.SUCCESS:
                          returnCode = self.model.moveDaleks()
+                print("MODEL >>> CONTROLLER")
+
                 return returnCode
 
 
@@ -79,13 +90,23 @@ class Controller(object):
 
 if __name__ == '__main__':
         #Get Parametre
-        print(str(sys.argv))
-        if str(sys.argv[0]) == "CLI":
-          print("CLI")
+        try:
+          interface = str(sys.argv[1])
+        except IndexError:
+            print("interface non specifie, CLI par défaut")
+            input("...")
+            interface = "CLI"
 
 
 
-        game = Controller()
+        if interface == "GUI":
+          from GUI import *
+        elif interface == "CLI":
+          from CLI import *
+
+        game = Controller(interface)
         #si param = CLI COntroller.vue == CLI()
         #Sinon Controller.vue == GUI
-        game.gameLoop()
+
+       # if interface == "GUI"
+       #  game.gameLoop()

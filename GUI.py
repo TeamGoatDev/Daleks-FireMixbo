@@ -39,7 +39,7 @@ class GameBoardUI(Frame):
         self.canvas.pack(fill=BOTH, expand=True)
         #Affichage initial
         self.draw(columns,rows)
-        # Binding des événements
+        # Binding des ÃƒÆ’Ã‚Â©vÃƒÆ’Ã‚Â©nements
         self.canvas.bind("<Button-1>", self.app.notifyMove)
 
 
@@ -114,7 +114,7 @@ class App(object):
 
 
 
-        
+
 
 
     def initStatsBar(self):
@@ -123,9 +123,9 @@ class App(object):
         frameStats = Frame(self.frame, height=20,  bg=COLOR_PRIMARY)
         frameStats.grid(row=0,column=0, columnspan=2, sticky=E+W,pady=5)
         frameStats.color = COLOR_PRIMARY
-  
 
-        self.labelScore = Label(frameStats, text="Crédits cosmiques:", width=35, background=frameStats.color)
+
+        self.labelScore = Label(frameStats, text="CrÃ©dits cosmiques:", width=35, background=frameStats.color)
         self.labelScore.grid(row=0,column=0, sticky=N+W+E)
 
 
@@ -135,12 +135,12 @@ class App(object):
 
 
         self.labelWave = Label(frameStats, text="Vague:",  width=35, background=frameStats.color)
-        self.labelWave.grid(row=0,column=2, sticky=E) 
+        self.labelWave.grid(row=0,column=2, sticky=E)
 
         self.labelZappeur = Label(frameStats, text="Zappeur:",  width=35, background=frameStats.color)
-        self.labelZappeur.grid(row=0,column=3, sticky=E) 
+        self.labelZappeur.grid(row=0,column=3, sticky=E)
 
-        
+
 
     def initGameBoard(self):
         self.boardData = None
@@ -162,7 +162,6 @@ class App(object):
         self.btnZap = Button(frameButton, text="Zapper", command=self.notifyZap)
         self.styleButton(self.btnZap)
         self.btnZap.pack(fill=X, pady=5)
-        
 
 
 
@@ -170,9 +169,9 @@ class App(object):
     def refresh(self, gameboard, doctor, daleks, scrapHeaps, level):
         print("REFRESH START")
         self.doctor = (doctor.position.x, doctor.position.y)
-        self.btnTeleport['text'] = "Téporter"
+        self.btnTeleport['text'] = "TÃ©lÃ©porter"
         self.btnZap['text'] = "Zapper"
-        self.labelScore['text'] = "Crédits cosmiques: " + str(doctor.nbPoints)
+        self.labelScore['text'] = "CrÃ©dits cosmiques: " + str(doctor.nbPoints)
         self.labelNbDaleks['text'] = "Nombre de Daleks: " + str(len(daleks))
         self.labelZappeur['text'] = "Zappeurs: " + str(doctor.nbZappeurs)
         self.labelWave['text'] = "Vague: " + str(level)
@@ -219,23 +218,17 @@ class App(object):
         userAction = None
         column = int(event.x/self.gameBoard.squareSize)
         row = int(event.y/self.gameBoard.squareSize)
-        print("col: %s row: %s"%(column,row))
-        print("DOCTOOOOOOOOOOOOOOOR: col: %s row: %s"%(self.doctor[0],self.doctor[1]))
-        
 
         #detect direction
         if row < self.doctor[1]: #Move up
             if column < self.doctor[0]: #Move left
                 userAction = UserAction.MOVE_NW
-                print("NW")
 
             elif column == self.doctor[0]: #Move only up
                 userAction = UserAction.MOVE_N
-                print("N")
 
             elif column > self.doctor[0]: #Move right
                 userAction = UserAction.MOVE_NE
-                print("NE")
 
         elif row == self.doctor[1]: #Move either left or right or not at all
             if column < self.doctor[0]: #Move left

@@ -1,3 +1,6 @@
+ #!/usr/bin/python
+ # -*- coding: utf-8 -*-
+
 from Model import *
 from UserActions import *
 from ReturnCodes import *

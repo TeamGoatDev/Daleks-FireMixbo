@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 #Python 3.x
 #Small GUI Framework based on Tkinter
 from tkinter import *

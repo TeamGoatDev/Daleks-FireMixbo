@@ -1,3 +1,5 @@
+ #!/usr/bin/python
+ # -*- coding: utf-8 -*-
 class Gameboard(object):
 	"""Manages the map"""
 	x = 0

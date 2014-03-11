@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+#Python 3.x
 class Enum(object):
         """docstring for Enum"""
         def __init__(self):

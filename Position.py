@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+#Python 3.x
 from random import randrange
 
 class Position(object):

@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 #Python 3.x
 from tkinter import *
 from tkinter import ttk

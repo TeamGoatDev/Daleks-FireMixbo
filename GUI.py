@@ -169,7 +169,6 @@ class App(object):
 
 
     def refresh(self, gameboard, doctor, daleks, scrapHeaps, level):
-        print("REFRESH START")
         self.doctor = (doctor.position.x, doctor.position.y)
         self.btnTeleport['text'] = "Téléporter"
         self.btnZap['text'] = "Zapper"
@@ -179,7 +178,6 @@ class App(object):
         self.labelWave['text'] = "Vague: " + str(level)
         self.generateMatrix(gameboard, doctor, daleks, scrapHeaps)
         self.gameBoard.draw(gameboard.x,gameboard.y)
-        print("REFRESH END")
 
 
 
@@ -195,14 +193,12 @@ class App(object):
 
     def printGameOver(self):
         self.parent.parent.withdraw()
-        print("VOUS ÊTES MORT!")
         window = Window()
         window.mainFrame['background'] = 'red'
         self.doctorDeadImage = PhotoImage(file="img/Doctor.gif")
         self.labelDead = Label(window.mainFrame, compound="top",  text="Docteur! Vous êtes mort!")
         #self.labelDead.image = self.doctorDeadImage
         self.labelDead.pack()
-        window.lift(aboveThis=self)
         window.run()
         self.callback(UserAction.EXIT_GAME)
 

@@ -15,23 +15,14 @@ class Controller(object):
                 self.model = Model()
                 self.listenEvent=None #will change when user inputs something
                 self.view.callback = self.gameLoop #The View will call al the changes here
-                if interface == "GUI":
-                   self.view.refresh(self.model.gameboard,
-                                          self.model.doctor,
-                                          self.model.daleks,
-                                          self.model.scrapHeaps,
-                                          self.model.level
-                                          )
-                   self.view.run()
-                elif interface == "CLI":
-                  self.view.refresh(self.model.gameboard,
-                                          self.model.doctor,
-                                          self.model.daleks,
-                                          self.model.scrapHeaps,
-                                          self.model.level
-                                          )
-                  self.view.getAction()
-                  #self.gameLoop()
+                self.view.refresh(self.model.gameboard,
+                                      self.model.doctor,
+                                      self.model.daleks,
+                                      self.model.scrapHeaps,
+                                      self.model.level
+                                      )
+                self.view.run()
+    
 
         # Has to be looped by the view manually
         def gameLoop(self, userAction):

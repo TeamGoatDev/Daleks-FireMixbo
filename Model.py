@@ -128,7 +128,7 @@ class Model(object):
             return ReturnCodes.SUCCESS
         else:
             return ReturnCodes.INVALID_MOVE
-
+            
 
 
 

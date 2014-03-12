@@ -63,8 +63,8 @@ class App(object):
 
         def displayGameboard(self, gameboard, dr, daleks, scrapHeaps):
                 boardUI = self.generateMatrix(gameboard, dr, daleks, scrapHeaps)
-                for y in range(0,gameboard.y-1):
-                         for x in range(0,gameboard.x-1):
+                for y in range(0,gameboard.y):
+                         for x in range(0,gameboard.x):
                                 print(boardUI[x][y],end=' ')
                          print("")
 
@@ -87,7 +87,7 @@ class App(object):
                 self.displayGameboard(gameboard, dr, daleks, scrapHeap)
 
 
-        def getAction(self):
+        def run(self):
             while(1):
                 action = self.actionFromInput(self.waitForInput())
                 self.callback(action)

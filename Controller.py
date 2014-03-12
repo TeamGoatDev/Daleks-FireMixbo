@@ -63,7 +63,6 @@ class Controller(object):
                                   self.model.scrapHeaps,
                                   self.model.level)
 
-                print("CONTROLLER >>> MODEL")
                 if userAction == UserAction.ZAP:
                         returnCode = self.model.zap() # ZAP
                 elif userAction == UserAction.TELEPORT:
@@ -71,11 +70,9 @@ class Controller(object):
                 elif userAction == UserAction.EXIT_GAME:
                         sys.exit(0)
                 else:
-                        print("IM MOOOVING")
                         returnCode = self.model.moveDoctor(userAction) # MOVE
                 if returnCode == ReturnCodes.SUCCESS:
                          returnCode = self.model.moveDaleks()
-                print("MODEL >>> CONTROLLER")
 
                 return returnCode
 

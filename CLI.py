@@ -57,14 +57,14 @@ class App(object):
                 return userInput in self.commands
 
 
-        def displayCosmicPoints(self, nbPoints):
-                print("Points cosmiques: %s"%(nbPoints))
+        def displayStats(self, nbPoints, level, nbZaps):
+                print("Points cosmiques: %s Vague: %s  Zaps: %s "%(nbPoints, level, nbZaps))
 
 
         def displayGameboard(self, gameboard, dr, daleks, scrapHeaps):
                 boardUI = self.generateMatrix(gameboard, dr, daleks, scrapHeaps)
-                for y in range(0,gameboard.y):
-                         for x in range(0,gameboard.x):
+                for y in range(0,gameboard.y-1):
+                         for x in range(0,gameboard.x-1):
                                 print(boardUI[x][y],end=' ')
                          print("")
 
@@ -83,7 +83,7 @@ class App(object):
         
 
         def refresh(self, gameboard, dr, daleks, scrapHeap, level):
-                self.displayCosmicPoints(dr.nbPoints)
+                self.displayStats(dr.nbPoints, level, dr.nbZappeurs)
                 self.displayGameboard(gameboard, dr, daleks, scrapHeap)
 
 

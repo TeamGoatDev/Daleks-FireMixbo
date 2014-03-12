@@ -199,7 +199,6 @@ class App(object):
         self.labelDead = Label(window.mainFrame, compound="top",  text="Docteur! Vous êtes mort!")
         #self.labelDead.image = self.doctorDeadImage
         self.labelDead.pack()
-        window.lift(aboveThis=self)
         window.run()
         self.callback(UserAction.EXIT_GAME)
 

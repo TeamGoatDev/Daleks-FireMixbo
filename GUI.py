@@ -61,7 +61,7 @@ class GameBoardUI(Frame):
     def draw(self,  nbCols, nbRows):
         self.rows = nbRows
         self.columns = nbCols
-        self.canvas.delete()
+        self.canvas.delete("all")
         for row in range(0,nbRows):
             for column in range(0,nbCols):
                 x1 = (column * self.squareSize)

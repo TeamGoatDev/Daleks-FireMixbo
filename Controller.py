@@ -6,12 +6,18 @@ from UserActions import *
 from ReturnCodes import *
 import sys
 
+import GUI
+import CLI
 
 class Controller(object):
         """docstring for Controller"""
         def __init__(self, interface):
                 super(Controller, self).__init__()
-                self.view = App()
+
+                if interface == "GUI":
+                  self.view = GUI.App()
+                elif interface == "CLI":
+                  self.view = CLI.App()
                 self.model = Model()
                 self.listenEvent=None #will change when user inputs something
                 self.view.callback = self.gameLoop #The View will call al the changes here
@@ -76,9 +82,6 @@ class Controller(object):
 
                 return returnCode
 
-
-
-
 if __name__ == '__main__':
         #Get Parametre
         try:
@@ -87,13 +90,6 @@ if __name__ == '__main__':
             print("interface non specifie, CLI par défaut")
             input("...")
             interface = "CLI"
-
-
-
-        if interface == "GUI":
-          from GUI import *
-        elif interface == "CLI":
-          from CLI import *
 
         game = Controller(interface)
         #si param = CLI COntroller.vue == CLI()

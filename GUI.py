@@ -171,9 +171,9 @@ class App(object):
     def refresh(self, gameboard, doctor, daleks, scrapHeaps, level):
         print("REFRESH START")
         self.doctor = (doctor.position.x, doctor.position.y)
-        self.btnTeleport['text'] = "TÃ©lÃ©porter"
+        self.btnTeleport['text'] = "Téléporter"
         self.btnZap['text'] = "Zapper"
-        self.labelScore['text'] = "CrÃ©dits cosmiques: " + str(doctor.nbPoints)
+        self.labelScore['text'] = "Crédits cosmiques: " + str(doctor.nbPoints)
         self.labelNbDaleks['text'] = "Nombre de Daleks: " + str(len(daleks))
         self.labelZappeur['text'] = "Zappeurs: " + str(doctor.nbZappeurs)
         self.labelWave['text'] = "Vague: " + str(level)
@@ -194,7 +194,7 @@ class App(object):
         return self.boardData
 
     def printGameOver(self):
-
+        self.parent.parent.withdraw()
         print("VOUS ÊTES MORT!")
         window = Window()
         window.mainFrame['background'] = 'red'

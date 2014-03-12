@@ -89,7 +89,7 @@ if __name__ == '__main__':
         except IndexError:
             print("interface non specifie, CLI par défaut")
             input("...")
-            interface = "CLI"
+            interface = "GUI"
 
         game = Controller(interface)
         #si param = CLI COntroller.vue == CLI()

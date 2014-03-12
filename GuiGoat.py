@@ -74,7 +74,8 @@ class Window(Frame):
 
     
         
-
+    def quit(self):
+        self.parent.destroy()
 
 
     def initTitleBar(self):
@@ -89,7 +90,7 @@ class Window(Frame):
         labelTitre = Label(frameTitleBar, text=self.title, background=self.color, foreground="white")
         labelTitre.grid(row=0,column=0, sticky=N+W+E, columnspan=2 )
         
-        btnClose = Button(self, text="x", command=self.parent.quit, width=5)
+        btnClose = Button(self, text="x", command=self.quit, width=5)
         btnClose['background'] = "#c0392b" #RED
         btnClose['borderwidth'] = 0
         btnClose['foreground'] = "#ecf0f1" #WHITE

@@ -7,6 +7,8 @@ from GuiGoat import *
 
 from Controller import *
 
+
+
 class Launcher(object):
     """A simple launcher to start the Game either in Graphical Mode or in a Command Line Interface"""
     def __init__(self):
@@ -47,7 +49,7 @@ class Launcher(object):
         #CLI Button
         cliImage = PhotoImage(file="img/terminal.gif")
         cliImage = cliImage.subsample(2, 2)
-        btnCLI = Button(frameButtons, compound="top", image=cliImage, text="CLI", command=launchCLI)
+        btnCLI = Button(frameButtons, compound="top", image=cliImage, text="CLI", command=self.launchCLI)
         btnCLI.image = cliImage
         self.styleButton(btnCLI)
         btnCLI.grid(row=0,column=0, pady=25, padx=25)
@@ -56,7 +58,7 @@ class Launcher(object):
 
         guiImage = PhotoImage(file="img/gui.gif")
         guiImage = guiImage.subsample(2, 2)
-        btnGUI = Button(frameButtons, compound="top", image=guiImage, text="GUI", command=launchGUI)
+        btnGUI = Button(frameButtons, compound="top", image=guiImage, text="GUI", command=self.launchGUI)
         btnGUI.image = guiImage
         self.styleButton(btnGUI)
         btnGUI.grid(row=0,column=1, pady=25, padx=25)
@@ -74,17 +76,28 @@ class Launcher(object):
         self.styleButton(btnQuit)
         btnQuit.grid(row=3, column=0, sticky=E+W)
 
+    def launchCLI(self):
+        launchCLI(self)
+
+    def launchGUI(self):
+        launchGUI(self)
 
 
 def main():
     app = Launcher()
     app.run()
 
-def launchCLI():
+def launchCLI(app):
+    app.parent.quit()
     game = Controller("CLI")
+   
+    
 
-def launchGUI():
+def launchGUI(app):
+    app.parent.quit()
     game = Controller("GUI")
+
+
 
 def quit():
     exit(0)
